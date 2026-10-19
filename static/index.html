@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6f2">
+  <title>拾序 · 个人任务管理器</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="/"><span class="brand-mark">拾</span><span><strong>拾序</strong><small>把想做的事，一件件完成</small></span></a>
+      <a class="api-link" href="/docs" target="_blank" rel="noreferrer">API 文档 ↗</a>
+    </header>
+
+    <section class="welcome">
+      <div><p class="eyebrow">YOUR SPACE, YOUR PACE</p><h1>今天，先做好一件事。</h1><p class="welcome-copy">把脑海里的待办放下来，专注下一步。</p></div>
+      <button class="primary" id="new-task">＋ 新建任务</button>
+    </section>
+
+    <section class="stats" aria-label="任务统计">
+      <article class="stat-card"><span class="stat-icon all">▦</span><div><small>全部任务</small><strong id="count-total">0</strong></div></article>
+      <article class="stat-card"><span class="stat-icon todo">◷</span><div><small>待办</small><strong id="count-todo">0</strong></div></article>
+      <article class="stat-card"><span class="stat-icon doing">↗</span><div><small>进行中</small><strong id="count-in-progress">0</strong></div></article>
+      <article class="stat-card"><span class="stat-icon done">✓</span><div><small>已完成</small><strong id="count-done">0</strong></div></article>
+    </section>
+
+    <section class="list-panel">
+      <div class="list-heading"><div><p class="eyebrow">TASK BOARD</p><h2>我的任务</h2></div><span class="task-total" id="visible-count">0 项</span></div>
+      <div class="toolbar">
+        <label class="search"><span>⌕</span><input id="search" type="search" placeholder="搜索任务标题…" aria-label="搜索任务标题"></label>
+        <div class="filters" role="group" aria-label="按状态筛选">
+          <button class="filter active" data-filter="all">全部</button><button class="filter" data-filter="todo">待办</button><button class="filter" data-filter="in_progress">进行中</button><button class="filter" data-filter="done">已完成</button>
+        </div>
+      </div>
+      <div id="task-list" class="task-list" aria-live="polite"></div>
+    </section>
+    <footer>拾序 · 轻一点开始，稳稳地向前</footer>
+  </main>
+
+  <dialog id="task-dialog">
+    <form id="task-form" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">A SMALL STEP</p><h2 id="dialog-title">新建任务</h2></div><button type="button" class="icon-button" id="close-dialog" aria-label="关闭">×</button></div>
+      <input type="hidden" id="task-id">
+      <label class="field">任务标题 <span>*</span><input id="title" maxlength="100" required placeholder="例如：整理本周计划"></label>
+      <label class="field">描述 <textarea id="description" maxlength="1000" rows="3" placeholder="补充一点细节（选填）"></textarea></label>
+      <div class="field-row"><label class="field">截止日期<input id="due-date" type="date"></label><label class="field">优先级<select id="priority"><option value="low">较低</option><option value="medium" selected>普通</option><option value="high">较高</option></select></label></div>
+      <label class="field">进度<select id="status"><option value="todo">待办</option><option value="in_progress">进行中</option><option value="done">已完成</option></select></label>
+      <p id="form-error" class="form-error" role="alert"></p>
+      <div class="dialog-actions"><button type="button" class="secondary" id="cancel-dialog">取消</button><button class="primary" type="submit">保存任务</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
